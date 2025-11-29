@@ -1,3 +1,7 @@
+import matplotlib.pyplot as plt
+plt.rcParams["font.family"] = "serif"
+
+
 import shared.utils.paths as paths
 import shared.utils.log as log
 import shared.utils.io as io

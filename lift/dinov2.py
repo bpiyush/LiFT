@@ -133,7 +133,7 @@ def make_classification_eval_transform(
     return transforms.Compose(transforms_list)
 
 
-def compute_dino_embeddings(
+def compute_dino_embeddings_for_videos(
     video_paths, preprocess, model, batch_size=32, n_frames=16, verbose=True,
 ):
     """
@@ -200,21 +200,27 @@ def compute_dino_embeddings(
     return all_inputs, all_features
 
 
-def compute_dino_features_for_single_video(video_path, preprocess, model, n_frames=-1, device=None):
+def compute_dino_features_for_single_video(video_path, preprocess, model, n_frames=-1, device=None, return_frames=False):
+    if device is None:
+        device = next(model.parameters()).device
     frames = load_frames_linspace(video_path, n=n_frames)
     x = torch.stack([preprocess(f) for f in frames])
     x = einops.rearrange(x, "t c h w -> 1 c t h w")
     # Move to device and compute features
     with torch.no_grad():
         z = model(x.to(device)).cpu()[0]
-    return x, z
+    
+    if return_frames:
+        return frames, x, z
+    else:
+        return x, z
 
 
 if __name__ == "__main__":
 
     # Test backbone
     print("Loading DINOv2ForVideo model.")
-    backbone = DINOv2ForVideo(model_id='vit_base_patch14_reg4_dinov2.lvd142m')
+    backbone = DINOv2ForVideo(model_id='vit_small_patch14_reg4_dinov2.lvd142m')
     n_params = sum(p.numel() for p in backbone.parameters())
     print(f"Number of parameters: {n_params/1e6:.2f}M")
     print("-" * 100)
@@ -238,7 +244,7 @@ if __name__ == "__main__":
     # Test feature computation on a batch of videos
     print("Testing feature computation on a batch of videos.")
     video_paths = ["./assets/folding_paper.mp4", "./assets/horsejump-high.mp4"]
-    x, z = compute_dino_embeddings(video_paths, preprocess, backbone)
+    x, z = compute_dino_embeddings_for_videos(video_paths, preprocess, backbone)
     print("Input: ", x.shape)
     print("Output (CLS): ", z.shape)
     print("-" * 100)
