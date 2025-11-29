@@ -20,6 +20,7 @@ def load_lift_module(
     # LiFT with DINOv2
     feature_dim=384,
     max_len=5000,
+    ckpt_root="/work/piyush/experiments/TimeBound.v1/time-antonyms/",
     ckpt_name="ggwirp95/checkpoints/epoch=458-step=834003.ckpt",
 ):
     
@@ -35,6 +36,7 @@ def load_lift_module(
     
     litmodule = load_lift_checkpoint(
         litmodule,
+        ckpt_root=ckpt_root,
         ckpt_name=ckpt_name,
     )
     litmodule = litmodule.eval()
@@ -52,6 +54,14 @@ def compute_lift_embeddings(base_embeds, model, t=16, unflatten=False, device=No
 
 
 if __name__ == "__main__":
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--ckpt_root", type=str, default="/work/piyush/experiments/TimeBound.v1/time-antonyms/")
+    parser.add_argument("--ckpt_name", type=str, default="ggwirp95/checkpoints/epoch=458-step=834003.ckpt")
+    args = parser.parse_args()
+    ckpt_root = args.ckpt_root
+    ckpt_name = args.ckpt_name
+
     # Set device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
@@ -65,7 +75,7 @@ if __name__ == "__main__":
     su.log.print_update(".", color='yellow')
     
     # Load LiFT
-    lift_module = load_lift_module().to(device)
+    lift_module = load_lift_module(ckpt_root=ckpt_root, ckpt_name=ckpt_name).to(device)
 
 
     # Sample video

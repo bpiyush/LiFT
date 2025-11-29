@@ -30,12 +30,12 @@ from shared.utils.log import tqdm_iterator
 import warnings
 warnings.filterwarnings("ignore")
 
-try:
-    import torchvideotransforms
-except:
-    print("Failed to import torchvideotransforms. Proceeding without.")
-    print("Please install using:")
-    print("pip install git+https://github.com/hassony2/torch_videovision")
+# try:
+#     import torchvideotransforms
+# except:
+#     print("Failed to import torchvideotransforms. Proceeding without.")
+#     print("Please install using:")
+#     print("pip install git+https://github.com/hassony2/torch_videovision")
 
 
 # define predominanat colors
