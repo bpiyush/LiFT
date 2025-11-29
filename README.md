@@ -16,6 +16,17 @@
 <p align="center">University of Oxford</p>
 <img width="1756" height="582" alt="image" src="https://github.com/user-attachments/assets/b725ef05-0e0d-491b-9402-2ad0d01fb1c9" />
 
+---
+
+## Table of Contents
+
+- [Brief Overview](#brief-overview)
+- [Installation and Setup](#installation-and-setup)
+  - [Download Model Weights](#download-model-weights)
+- [Quick Start (Demo)](#quick-start-demo)
+- [Citation](#citation)
+
+---
 
 ## Brief Overview
 
