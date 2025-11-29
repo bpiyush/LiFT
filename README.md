@@ -25,7 +25,7 @@
 **Key observation**: tSNE projections of per-frame features from DINOv2 show that they lie on a time-sensitive trajectory. Can we use these to learn a time-aware video representation?
 
 <p align="center">
-<img src="assets/dino_trajectory_example.gif" width="500" alt="DINO Trajectory">
+<img src="assets/dino_trajectory_example.gif" width="700" alt="DINO Trajectory">
 </p>
 
 ### 🏗️ The Model: LiFT
@@ -33,7 +33,7 @@
 **Inspired by perceptual straightening**: LiFT transforms non-linear DINO trajectories into a compact video embedding under a linearized Auto-Encoder model, inspired by the perceptual straightening hypothesis [Hénaff et al., Nature 2019].
 
 <p align="center">
-<img src="assets/lift-architecture.gif" width="600" alt="LiFT Architecture">
+<img src="assets/lift-architecture.gif" width="700" alt="LiFT Architecture">
 </p>
 
 <p align="center">
@@ -41,7 +41,7 @@
 </p>
 
 **What we contribute:**
-- **Model**: LiFT - a compact (256-dim) time-aware video embedding trained in an unsupervised manner
+- **Model**: LiFT - a compact (768-dim) time-aware video embedding trained in an unsupervised manner
 - **Benchmark**: Chirality in Action (CiA) - a new benchmark built from SSv2, EPIC, and Charades datasets to evaluate temporal understanding
 
 
@@ -104,7 +104,7 @@ Upon running the demo, you can see the visualization in `lift_output.png`:
 
 <!-- Center the image and add a short caption -->
 <img src="lift_output.png" width="500" height="auto" style="display: block; margin: 0 auto;">
-<p align="center">
+<p align="left">
   <em>Visualization of the DINO trajectory and LiFT reconstruction.</em>
 </p>
 
