@@ -8,6 +8,8 @@
 </p>
 
 <h3 align="center">Chirality in Action: Time-Aware Video Representation Learning by Latent Straightening</h3>
+<img width="1756" height="582" alt="image" src="https://github.com/user-attachments/assets/b725ef05-0e0d-491b-9402-2ad0d01fb1c9" />
+
 <p align="center"><strong>NeurIPS 2025</strong></p>
 <p align="center">
   <a href="https://bpiyush.github.io/">Piyush Bagad</a>, &nbsp;
