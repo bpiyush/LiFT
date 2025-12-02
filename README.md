@@ -103,6 +103,9 @@ For basic usage of LiFT, we provide a demo script in `lift/demo.py`.
 To run the demo, you can use the following command:
 
 ```sh
+# Go to the code directory
+cd LiFT
+export PYTHONPATH=$PWD
 python lift/demo.py --ckpt_root . --ckpt_name ggwirp95-epoch=458-step=834003.ckpt
 ```
 
