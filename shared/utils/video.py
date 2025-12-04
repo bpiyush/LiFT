@@ -95,9 +95,15 @@ def load_frames_at_timestamps(video_path, timestamps):
 
 
 
-import ffmpeg
 import os
 from pathlib import Path
+
+try:
+    import ffmpeg
+    FFMPEG_AVAILABLE = True
+except ImportError:
+    FFMPEG_AVAILABLE = False
+    ffmpeg = None
 
 def cut_video(video_path, start_time, end_time, save_path):
     """
