@@ -59,8 +59,14 @@
 
 ## Installation and Setup
 
-Please follow the instructions below to install the dependencies in a `conda` environment called `lift`.
-This code is tested on a GPU (NVIDIA RTX A4000) with OS Ubuntu 22.04.5 LTS.
+```sh
+pip install git+https://github.com/bpiyush/LiFT.git
+```
+
+<details>
+<summary><b>Alternative: Manual installation with conda</b></summary>
+
+If you prefer more control over dependencies, create a conda environment:
 
 ```sh
 conda create --name lift python=3.11 -y
@@ -82,6 +88,8 @@ pip install opencv-python pandas ipdb ipywidgets tqdm scikit-learn termcolor sea
 # Install gdown for downloading model weights
 pip install gdown
 ```
+
+</details>
 
 ### Download Model Weights
 
