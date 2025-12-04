@@ -19,11 +19,20 @@ from tqdm import tqdm
 #     exit("Failed to import librosa. Please install.")
 
 
-from IPython.display import Audio, Markdown, display
+try:
+    from IPython.display import Audio, Markdown, display
+    IPYTHON_AVAILABLE = True
+except ImportError:
+    IPYTHON_AVAILABLE = False
+    Audio = Markdown = display = None
+
 try:
     from ipywidgets import Button, HBox, VBox, Text, Label, HTML, widgets
-except:
-    exit("Failed to import ipywidgets. Please install.")
+    IPYWIDGETS_AVAILABLE = True
+except ImportError:
+    IPYWIDGETS_AVAILABLE = False
+    # Create dummy classes for type hints
+    Button = HBox = VBox = Text = Label = HTML = widgets = None
 
 from shared.utils.log import tqdm_iterator
 
@@ -417,7 +426,7 @@ def plot_historgam_values(
     
     if show_mean:
         mean = np.mean(X)
-        mean_string = f"$\mu$: {mean:.2f}"
+        mean_string = f"$\\mu$: {mean:.2f}"
         ax.set_title(title + f" ({mean_string}) ")
     else:
         ax.set_title(title)
@@ -660,7 +669,10 @@ def reduce_dim(X, method="tsne", perplexity=30, n_iter=1000):
     return Z
 
 
-from IPython.display import Video
+try:
+    from IPython.display import Video
+except ImportError:
+    Video = None
 def show_video(video_path):
     """Show a video in a Jupyter notebook"""
     assert exists(video_path), f"Video path {video_path} does not exist"
@@ -3132,12 +3144,12 @@ def visualize_dense_feature_norm(x, size=(224, 224), stitch=True):
     return x
 
 
-import seaborn as sns
 def plot_confusion_matrix(x, cmap="viridis", title=None, show=False, return_as_pil=False):
     """
     Args:
         x (torch.Tensor): [C, C]
     """
+    import seaborn as sns
     # x = x.cpu().numpy()
     fig, ax = plt.subplots(1, 1, figsize=(5, 4))
     sns.heatmap(x, cmap=cmap, annot=True, ax=ax, vmin=-1, vmax=1)
@@ -3152,10 +3164,11 @@ def plot_confusion_matrix(x, cmap="viridis", title=None, show=False, return_as_p
     return fig
 
 
-from IPython.display import display, Markdown
 def show_text(text):
+    from IPython.display import display, Markdown
     display(Markdown(text))
 
 
 def show_text_with_color(text, color="red"):
+    from IPython.display import display, Markdown
     display(Markdown(f"<span style='color: {color};'>{text}</span>"))

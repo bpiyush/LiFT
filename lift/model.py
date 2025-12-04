@@ -586,27 +586,31 @@ class LiFTLightningModule(L.LightningModule):
         # Log visualisation of trajectories for few videos
         # only for the first batch
         if (batch_idx == 0) and self.show_traj:
-            from adapt4change.playground.expt_utils import (
-                show_feature_trajectories,
-            )
-            n_show = 4
-            images = [
-                show_feature_trajectories(
-                    video_path=batch['video_path'][i],
-                    x=outputs["original"][i].detach().cpu().numpy(),
-                    x_hat=outputs["reconstructed"][i].detach().cpu().numpy(),
-                ) for i in range(n_show)
-            ]
-            canvas = su.visualize.concat_images_with_border(images)
+            try:
+                from adapt4change.playground.expt_utils import (
+                    show_feature_trajectories,
+                )
+                n_show = 4
+                images = [
+                    show_feature_trajectories(
+                        video_path=batch['video_path'][i],
+                        x=outputs["original"][i].detach().cpu().numpy(),
+                        x_hat=outputs["reconstructed"][i].detach().cpu().numpy(),
+                    ) for i in range(n_show)
+                ]
+                canvas = su.visualize.concat_images_with_border(images)
 
-            # Log image
-            if not self.no_wandb:
-                import wandb
-                self.logger.experiment.log(
-                    {
-                        "valid/feature_trajectories": wandb.Image(canvas),
-                    },
-            )
+                # Log image
+                if not self.no_wandb:
+                    import wandb
+                    self.logger.experiment.log(
+                        {
+                            "valid/feature_trajectories": wandb.Image(canvas),
+                        },
+                )
+            except ImportError:
+                # adapt4change is only needed for training visualization
+                pass
                 
             del outputs["original"]
             del outputs["reconstructed"]
