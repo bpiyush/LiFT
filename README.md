@@ -59,6 +59,14 @@
 
 ## Installation and Setup
 
+First, create a conda environment:
+```sh
+conda create --name lift python=3.11 -y
+conda activate lift
+```
+
+Then, install the LiFT package:
+
 ```sh
 pip install git+https://github.com/bpiyush/LiFT.git
 ```
@@ -105,6 +113,9 @@ Alternatively, you can manually download from [Google Drive](https://drive.googl
 ## Quick Start
 
 ```python
+# Set path to your video
+video_path = "your_video.mp4"
+
 import torch
 from lift import DINOv2ForVideo, make_classification_eval_transform, load_lift_module
 from lift.dinov2 import compute_dino_features_for_single_video
@@ -119,7 +130,6 @@ preprocess = make_classification_eval_transform()
 lift_model = load_lift_module(ckpt_root=".", ckpt_name="ggwirp95-epoch=458-step=834003.ckpt").to(device)
 
 # Extract features from your video
-video_path = "your_video.mp4"
 frames, _, dino_feats = compute_dino_features_for_single_video(
     video_path, preprocess, backbone, return_frames=True, device=device, n_frames=16
 )
